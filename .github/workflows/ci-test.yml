@@ -6,9 +6,6 @@ on:
 jobs:
   create-ro-token:
     runs-on: ubuntu-latest
-    outputs:
-      # cds_ro_token: ${{ steps.github-app.outputs.token }}
-      cds_ro_token: ${{ steps.ro-token.outputs.token }}
     steps:
       - name: Get token from github app
         id: github-app
@@ -19,7 +16,7 @@ jobs:
       - name: Set output
         id: ro-token
         run: |
-          echo "token=${{ steps.github-app.outputs.token }}" >> "$GITHUB_OUTPUT"
+          echo "cds_ro_token=${{ steps.github-app.outputs.token }}" >> "$GITHUB_ENV"
 
   test-checkout-current-repo:
     runs-on: ubuntu-latest
@@ -45,5 +42,5 @@ jobs:
         with:
           repository: matt-lewis-testing-org/reusable-actions
           path: ./reusable-actions
-          token: ${{ needs.create-ro-token.outputs.cds_ro_token }}
+          token: ${{ env.cds_ro_token }}
           ref: main
