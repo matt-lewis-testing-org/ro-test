@@ -7,7 +7,8 @@ jobs:
   create-ro-token:
     runs-on: ubuntu-latest
     outputs:
-      cds_ro_token: ${{ steps.github-app.outputs.token }}
+      # cds_ro_token: ${{ steps.github-app.outputs.token }}
+      cds_ro_token: ${{ steps.ro-token.outputs.token }}
     steps:
       - name: Get token from github app
         id: github-app
@@ -15,10 +16,10 @@ jobs:
         with:
           app_id: ${{ vars.RO_APP_ID }}
           private_key: ${{ secrets.RO_APP_KEY }}
-      # - name: Set output
-      #   id: ro-token
-      #   run: |
-      #     echo "token=${{ steps.github-app.outputs.token }}" >> "$GITHUB_OUTPUT"
+      - name: Set output
+        id: ro-token
+        run: |
+          echo "token=${{ steps.github-app.outputs.token }}" >> "$GITHUB_OUTPUT"
 
   test-checkout-current-repo:
     runs-on: ubuntu-latest
