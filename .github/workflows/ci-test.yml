@@ -4,10 +4,53 @@ on:
   workflow_dispatch:
 
 jobs:
-  ci:
+  test-checkout-current-repo:
     runs-on: ubuntu-latest
     steps:
-      - name: wait 15 sec
-        run: |
-          sleep 15
+      - name: Get token from github app
+        id: github-app
+        uses: getsentry/action-github-app-token@v2
+        with:
+          app_id: ${{ vars.RO_APP_ID }}
+          private_key: ${{ secrets.RO_APP_KEY }}
+          
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ inputs.github_token }}
+
+  test-checkout-private-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get token from github app
+        id: github-app
+        uses: getsentry/action-github-app-token@v2
+        with:
+          app_id: ${{ vars.RO_APP_ID }}
+          private_key: ${{ secrets.RO_APP_KEY }}
       
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          repository: matt-lewis-testing-org/private-test-repo
+          path: ./private-test-repo
+          token: ${{ inputs.github_token }}
+          ref: main
+      
+  test-checkout-public-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get token from github app
+        id: github-app
+        uses: getsentry/action-github-app-token@v2
+        with:
+          app_id: ${{ vars.RO_APP_ID }}
+          private_key: ${{ secrets.RO_APP_KEY }}
+      
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          repository: matt-lewis-testing-org/reusable-actions
+          path: ./reusable-actions
+          token: ${{ inputs.github_token }}
+          ref: main
