@@ -19,8 +19,6 @@ jobs:
           echo "cds_ro_token=${{ steps.github-app.outputs.token }}" >> "$GITHUB_ENV"
           echo "GH_TOKEN=${{ steps.github-app.outputs.token }}" >> "$GITHUB_ENV"
       - name: test gh token with cli
-        env:
-          GH_TOKEN: ${{ steps.github-app.outputs.token }}
         run: |
           gh repo list matt-lewis-testing-org
 
