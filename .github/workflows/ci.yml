@@ -16,4 +16,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
+          repository: matt-lewis-testing-org/reusable-actions
+          path: ./reusable-actions
           token: ${{ inputs.token }}
+          ref: main
