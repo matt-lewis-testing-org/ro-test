@@ -39,4 +39,4 @@ jobs:
     needs: create-ro-token
     uses: matt-lewis-testing-org/ro-test/.github/workflows/ci.yml@main
     with:
-      token: ${{ steps.create-ro-token.outputs.cds_ro_token }}
+      token: ${{ needs.create-ro-token.outputs.cds_ro_token }}
