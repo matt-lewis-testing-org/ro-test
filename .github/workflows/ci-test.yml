@@ -6,6 +6,8 @@ on:
 jobs:
   create-ro-token:
     runs-on: ubuntu-latest
+    outputs:
+      cds_ro_token: ${{ steps.ro-token.outputs.token }}
     steps:
       - name: Get token from github app
         id: github-app
@@ -14,8 +16,9 @@ jobs:
           app_id: ${{ vars.RO_APP_ID }}
           private_key: ${{ secrets.RO_APP_KEY }}
       - name: Set output
+        id: ro-token
         run: |
-          echo "cds_ro_token=${{ steps.github-app.outputs.token }}" >> $GITHUB_ENV
+          echo "::set-output name=token::${{ steps.github-app.outputs.token}}"
 
   test-checkout-current-repo:
     runs-on: ubuntu-latest
@@ -36,4 +39,4 @@ jobs:
     needs: create-ro-token
     uses: matt-lewis-testing-org/ro-test/.github/workflows/ci.yml@main
     with:
-      token: ${{ env.cds_ro_token }}
+      token: ${{ steps.create-ro-token.outputs.cds_ro_token }}
