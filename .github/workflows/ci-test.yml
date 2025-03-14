@@ -6,6 +6,8 @@ on:
 jobs:
   create-ro-token:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ steps.github-app.outputs.token }}
     steps:
       - name: Get token from github app
         id: github-app
