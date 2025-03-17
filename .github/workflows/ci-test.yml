@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Get token from github app
         id: github-app
-        uses: actions/create-github-app-token@v1
+        uses: getsentry/action-github-app-token@v2
         with:
           app_id: ${{ vars.RO_APP_ID }}
           private_key: ${{ secrets.RO_APP_KEY }}
@@ -33,7 +33,7 @@ jobs:
     steps:
       - name: Get token from github app
         id: github-app
-        uses: actions/create-github-app-token@v1
+        uses: getsentry/action-github-app-token@v2
         with:
           app_id: ${{ vars.RO_APP_ID }}
           private_key: ${{ secrets.RO_APP_KEY }}
