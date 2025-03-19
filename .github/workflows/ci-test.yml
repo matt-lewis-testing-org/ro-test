@@ -19,11 +19,11 @@ jobs:
       #   id: token-ro
       #   run: |
       #     echo "cds_ro_token=${{ steps.github-app.outputs.token }}" >> "$GITHUB_OUTPUT"
-      # - name: Set output
-      #   id: ro-token
-      #   run: |
-      #     echo "cds_ro_token=${{ steps.github-app.outputs.token }}" >> "$GITHUB_ENV"
-      #     echo "GITHUB_TOKEN=${{ steps.github-app.outputs.token }}" >> "$GITHUB_ENV"
+      - name: Set output
+        id: ro-token
+        run: |
+          # echo "cds_ro_token=${{ steps.github-app.outputs.token }}" >> "$GITHUB_ENV"
+          echo "GITHUB_TOKEN=${{ steps.github-app.outputs.token }}" >> "$GITHUB_ENV"
       - name: test gh token with cli
         run: |
           gh repo list matt-lewis-testing-org
