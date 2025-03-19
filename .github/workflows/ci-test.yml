@@ -6,8 +6,8 @@ on:
 jobs:
   create-ro-token:
     runs-on: ubuntu-latest
-    outputs:
-      ro_token: ${{ steps.token-ro.outputs.cds_ro_token }}
+    # outputs:
+    #   ro_token: ${{ steps.token-ro.outputs.cds_ro_token }}
     steps:
       - name: Get token from github app
         id: github-app
@@ -15,18 +15,18 @@ jobs:
         with:
           app_id: ${{ vars.RO_APP_ID }}
           private_key: ${{ secrets.RO_APP_KEY }}
-      - name: Set output
-        id: token-ro
-        run: |
-          echo "cds_ro_token=${{ steps.github-app.outputs.token }}" >> "$GITHUB_OUTPUT"
+      # - name: Set output
+      #   id: token-ro
+      #   run: |
+      #     echo "cds_ro_token=${{ steps.github-app.outputs.token }}" >> "$GITHUB_OUTPUT"
       # - name: Set output
       #   id: ro-token
       #   run: |
       #     echo "cds_ro_token=${{ steps.github-app.outputs.token }}" >> "$GITHUB_ENV"
       #     echo "GITHUB_TOKEN=${{ steps.github-app.outputs.token }}" >> "$GITHUB_ENV"
-      # - name: test gh token with cli
-      #   run: |
-      #     gh repo list matt-lewis-testing-org
+      - name: test gh token with cli
+        run: |
+          gh repo list matt-lewis-testing-org
 
   test-checkout-current-repo:
     runs-on: ubuntu-latest
