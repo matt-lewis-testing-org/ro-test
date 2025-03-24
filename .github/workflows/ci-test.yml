@@ -11,10 +11,11 @@ jobs:
     steps:
       - name: Get token from github app
         id: github-app
-        uses: getsentry/action-github-app-token@v2
+        uses: actions/create-github-app-token@v1
         with:
-          app_id: ${{ vars.RO_APP_ID }}
-          private_key: ${{ secrets.RO_APP_KEY }}
+          app-id: ${{ vars.RO_APP_ID }}
+          private-key: ${{ secrets.RO_APP_KEY }}
+          owner: ${{ github.repository_owner }}
       # - name: Set output
       #   id: token-ro
       #   run: |
