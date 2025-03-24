@@ -28,6 +28,8 @@ jobs:
       - name: test gh token with cli
         run: |
           gh repo list matt-lewis-testing-org
+        env:
+          GITHUB_TOKEN: ${{ steps.github-app.outputs.token }}
 
   test-checkout-current-repo:
     runs-on: ubuntu-latest
